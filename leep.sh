@@ -12,7 +12,7 @@ fi
 
 COUNT=$(echo "$MATCH" | wc -l)
 if [ $COUNT -gt 1 ]; then
-    echo "$MATCH" | python -m tokenize a | awk '{printf "[%s] %s\n", NR, $0}'
+    echo "$MATCH" | python -m tokenize | awk '{printf "[%s] %s\n", NR, $0}'
     read -r line
 
     if [ -z "$line" ]; then
