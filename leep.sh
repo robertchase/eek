@@ -26,7 +26,7 @@ if [ $COUNT -gt 1 ]; then
     MATCH=$(echo "$MATCH" | head -$line | tail -1)
 fi
 
-args=$(echo "$MATCH" | python -m tokenize a)
+args=$(echo "$MATCH" | python -m tokenize)
 value=$(echo "$MATCH" | python -m tokenize -k $KEY | tr -d '\n')
 if [ -z "$value" ]; then
     echo "no '$KEY' found for '$args'"
