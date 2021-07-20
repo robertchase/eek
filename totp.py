@@ -56,9 +56,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--choice", type=int)
+    parser.add_argument("--secret")
     args = parser.parse_args()
 
     if args.choice:
         secret(sys.stdin, args.choice)
+    elif args.secret:
+        print(get_hotp_token(args.secret))
     else:
         index(sys.stdin)
