@@ -3,12 +3,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export PYTHONPATH=$DIR
 
-MATCH=$(leek $*)
+MATCH=$(cat "$EEK_LOCAL" | openssl enc -pass env:EPASS -d -aes-256-cbc -a | grep $*)
 if [ -z "$MATCH" ]; then
     echo 'no match'
-    return
+    exit
 fi
 echo "$MATCH" | while read -r line
 do
-    echo "$(python -m tokenize)\n"
+    echo $line | python -m tokenize
 done

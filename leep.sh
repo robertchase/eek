@@ -4,10 +4,10 @@ KEY=${KEY:-pass}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export PYTHONPATH="$DIR"
 
-MATCH=$(leek $*)
+MATCH=$(cat "$EEK_LOCAL" | openssl enc -pass env:EPASS -d -aes-256-cbc -a | grep $*)
 if [ -z "$MATCH" ]; then
     echo 'no match'
-    return
+    exit
 fi
 
 COUNT=$(echo "$MATCH" | wc -l)
@@ -17,10 +17,10 @@ if [ $COUNT -gt 1 ]; then
 
     if [ -z "$line" ]; then
         echo 'no choice'
-        return
+        exit
     elif [ $line -gt $COUNT ]; then
         echo 'no line matched'
-        return
+        exit
     fi
 
     MATCH=$(echo "$MATCH" | head -$line | tail -1)
@@ -30,7 +30,7 @@ args=$(echo "$MATCH" | python -m tokenize)
 value=$(echo "$MATCH" | python -m tokenize -k $KEY | tr -d '\n')
 if [ -z "$value" ]; then
     echo "no '$KEY' found for '$args'"
-    return
+    exit
 fi
 
 echo "$MATCH" | python -m tokenize -k $KEY | tr -d '\n' | pbcopy
