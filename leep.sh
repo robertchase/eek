@@ -12,7 +12,7 @@ fi
 
 COUNT=$(echo "$MATCH" | wc -l)
 if [ $COUNT -gt 1 ]; then
-    echo "$MATCH" | python -m tokenize | awk '{printf "[%s] %s\n", NR, $0}'
+    echo "$MATCH" | python3 -m tokenize | awk '{printf "[%s] %s\n", NR, $0}'
     read -r line
 
     if [ -z "$line" ]; then
@@ -26,12 +26,12 @@ if [ $COUNT -gt 1 ]; then
     MATCH=$(echo "$MATCH" | head -$line | tail -1)
 fi
 
-args=$(echo "$MATCH" | python -m tokenize)
-value=$(echo "$MATCH" | python -m tokenize -k $KEY | tr -d '\n')
+args=$(echo "$MATCH" | python3 -m tokenize)
+value=$(echo "$MATCH" | python3 -m tokenize -k $KEY | tr -d '\n')
 if [ -z "$value" ]; then
     echo "no '$KEY' found for '$args'"
     exit
 fi
 
-echo "$MATCH" | python -m tokenize -k $KEY | tr -d '\n' | pbcopy
+echo "$MATCH" | python3 -m tokenize -k $KEY | tr -d '\n' | pbcopy
 echo "copied '$KEY' to clipboard for '$args'"

@@ -10,5 +10,5 @@ if [ -z "$MATCH" ]; then
 fi
 echo "$MATCH" | while read -r line
 do
-    echo $line | python -m tokenize
+    echo $line | python3 -m tokenize
 done
