@@ -19,10 +19,10 @@ else
         fi
         case "$FILE" in
           *.enc)
-            openssl enc $PFILE -d -aes-256-cbc -a -in "$FILE" -out "$(basename "$FILE" .enc)"
+            openssl enc -md md5 $PFILE -d -aes-256-cbc -a -in "$FILE" -out "$(basename "$FILE" .enc)"
             ;;
           *)
-            openssl enc $PFILE -aes-256-cbc -a -in "$FILE" -out "$FILE.enc"
+            openssl enc -md md5 $PFILE -aes-256-cbc -a -in "$FILE" -out "$FILE.enc"
             ;;
         esac
     done
